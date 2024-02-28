@@ -1,0 +1,122 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "PyTorch Tutorials",
+    "section": "",
+    "text": "Notes of Prof Michael Kipp’s tutorials on PyTorch.\n\nPyTorch I - Foundamentals\nPyTorch II - Neural Networks"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Finley Malloc is the Chief Data Scientist at Wengo Analytics. When not innovating on data platforms, Finley enjoys spending time unicycling and playing with her pet iguana."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\nUniversity of California, San Diego | San Diego, CA PhD in Mathematics | Sept 2011 - June 2015\nMacalester College | St. Paul MA B.A in Economics | Sept 2007 - June 2011"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "About",
+    "section": "Experience",
+    "text": "Experience\nWengo Analytics | Head Data Scientist | April 2018 - present\nGeoScynce | Chief Analyst | Spet 2012 - April 2018"
+  },
+  {
+    "objectID": "chapter00.html",
+    "href": "chapter00.html",
+    "title": "00. Visualizing Gradient Descent",
+    "section": "",
+    "text": "According to Wikipedia:\n\nGradient descent is a first-order iterative optimization algorithm for finding a local minimum of a differentiable function.\n\nBut I would go with:\n\nGradient descent is an iterative technique commonly used in machine learning and deep learning to find the best possible set of parameters / coefficients for a given model, data points, and loss function, starting from an initial, and usually random, guess.\n\nIf you really understand how gradient descent works, you will also understand how the characteristics of your data and your choice of hyper-parameters (mini-batch size and learning rate, for instance) have an impact on how well and how fast the model training is going to be.\nBy really understanding, I do not mean working through the equations manually: this does not develop intuition either. I mean visualizing the effects of different settings; I mean telling a story to illustrate the concept. That’s how you develop intuition."
+  },
+  {
+    "objectID": "chapter00.html#visualizing-gradient-descent-1",
+    "href": "chapter00.html#visualizing-gradient-descent-1",
+    "title": "00. Visualizing Gradient Descent",
+    "section": "",
+    "text": "According to Wikipedia:\n\nGradient descent is a first-order iterative optimization algorithm for finding a local minimum of a differentiable function.\n\nBut I would go with:\n\nGradient descent is an iterative technique commonly used in machine learning and deep learning to find the best possible set of parameters / coefficients for a given model, data points, and loss function, starting from an initial, and usually random, guess.\n\nIf you really understand how gradient descent works, you will also understand how the characteristics of your data and your choice of hyper-parameters (mini-batch size and learning rate, for instance) have an impact on how well and how fast the model training is going to be.\nBy really understanding, I do not mean working through the equations manually: this does not develop intuition either. I mean visualizing the effects of different settings; I mean telling a story to illustrate the concept. That’s how you develop intuition."
+  },
+  {
+    "objectID": "chapter00.html#model",
+    "href": "chapter00.html#model",
+    "title": "00. Visualizing Gradient Descent",
+    "section": "Model",
+    "text": "Model\nA linear regression with a single feature, \\(x\\):\n\\[y = b + wx + \\epsilon\\]\nIn this model, we use a feature (x) to try to predict the value of a label (y). There are three elements in our model:\n\n\\(b\\) : the bias (or intercept), which tells us the expected average value of y when x is zero\n\\(w\\) : the weight (or slope), which tells us how much y increases, on average, if we increase x by one unit\n\\(\\epsilon\\) : which is there to account for the inherent noise; that is, the error we cannot get rid of"
+  },
+  {
+    "objectID": "chapter00.html#visualizing-gradient-descent",
+    "href": "chapter00.html#visualizing-gradient-descent",
+    "title": "00. Visualizing Gradient Descent",
+    "section": "",
+    "text": "According to Wikipedia:\n\nGradient descent is a first-order iterative optimization algorithm for finding a local minimum of a differentiable function.\n\nBut I would go with:\n\nGradient descent is an iterative technique commonly used in machine learning and deep learning to find the best possible set of parameters / coefficients for a given model, data points, and loss function, starting from an initial, and usually random, guess.\n\nIf you really understand how gradient descent works, you will also understand how the characteristics of your data and your choice of hyper-parameters (mini-batch size and learning rate, for instance) have an impact on how well and how fast the model training is going to be.\nBy really understanding, I do not mean working through the equations manually: this does not develop intuition either. I mean visualizing the effects of different settings; I mean telling a story to illustrate the concept. That’s how you develop intuition."
+  },
+  {
+    "objectID": "chapter00.html#data-generation",
+    "href": "chapter00.html#data-generation",
+    "title": "00. Visualizing Gradient Descent",
+    "section": "Data Generation",
+    "text": "Data Generation\n\nCreate Synthetic Data\n\nimport numpy as np\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.preprocessing import StandardScaler\n\n\ntrue_b = 1\ntrue_w = 2\nN = 100\n\nnp.random.seed(42)\nx = np.random.rand(N, 1)\nepsilon = (0.1 * np.random.randn(N, 1))\n\ny = true_b + true_w * x + epsilon\n\n\n\nSplit data as train-valid-test\n\n# shuffle indices\nidx = np.arange(N)\nnp.random.shuffle(idx)\n\n# use the first 80 for training, and the rest for validation\ntrain_idx = idx[:int(N*0.8)]\nval_idx = idx[int(N*0.8):]\n\n# create train and valid data sets\nx_train, y_train = x[train_idx], y[train_idx]\nx_val, y_val= x[val_idx], y[val_idx]\n\nPlot the data using plots.chapter0\n\nfrom config import *\nfrom plots.chapter0 import *\n\nfigure1(x_train, y_train, x_val, y_val)\n\n(&lt;Figure size 1152x576 with 2 Axes&gt;,\n array([&lt;Axes: title={'center': 'Generated Data - Train'}, xlabel='x', ylabel='y'&gt;,\n        &lt;Axes: title={'center': 'Generated Data - Validation'}, xlabel='x', ylabel='y'&gt;],\n       dtype=object))\n\n\n\n\n\nPlot the data using plotly.\n\n\nPlot with plotly\nimport plotly.express as px\nfrom plotly.subplots import make_subplots\nimport plotly.graph_objects as go\n\nfig1 = make_subplots(\n    rows=1, cols=2, \n    subplot_titles=(\"Training Data\",\"Validation Data\")\n)\n\nfig1.add_trace(\n    go.Scatter(\n        x = x_train[:, 0], \n        y = y_train[:, 0], \n        mode='markers'\n    ), \n    row=1, col=1, \n)\n\nfig1.add_trace(\n    go.Scatter(\n        x = x_val[:, 0], \n        y = y_val[:, 0], \n        mode='markers'\n    ), \n    row=1, col=2, \n)\n\nfig1.update_layout(\n    autosize=False,\n    width=1000,\n    height=500,\n    margin=dict(\n        l=50,\n        r=50,\n        b=50,\n        t=50\n    ),\n)\n\nfig1.show()\n\nfig1.write_image(\"images/fig_00_01.svg\")"
+  },
+  {
+    "objectID": "chapter00.html#step-0---random-initialization",
+    "href": "chapter00.html#step-0---random-initialization",
+    "title": "00. Visualizing Gradient Descent",
+    "section": "Step 0 - Random Initialization",
+    "text": "Step 0 - Random Initialization\nTo train a model, need to randomly initialize the parameters/weights.\n\n# randomly init param: b & w\nnp.random.seed(42)\nb = np.random.randn(1)\nw = np.random.randn(1)\n\nprint('b:\\t', b)\nprint('w:\\t', w)\n\nb:   [0.49671415]\nw:   [-0.1382643]"
+  },
+  {
+    "objectID": "chapter00.html#step-1---compute-models-predictions",
+    "href": "chapter00.html#step-1---compute-models-predictions",
+    "title": "00. Visualizing Gradient Descent",
+    "section": "Step 1 - Compute Models’ Predictions",
+    "text": "Step 1 - Compute Models’ Predictions\nThis is the forward pass, which computes the model’s prediction using the randomly initalized parameters.\n\nyhat = b + w * x_train\n\n\nfigure2(x_train, y_train, b, w)\n\n(&lt;Figure size 576x576 with 1 Axes&gt;, &lt;Axes: xlabel='x', ylabel='y'&gt;)\n\n\n\n\n\nOr, plot using plotly.\n\n\nmethod 1: using plotly graph_objects\nimport plotly.graph_objects as go\n\nfig2a = go.Figure()\n\nfig2a.add_trace(go.Scatter(\n    x = x_train[:, 0], \n    y = y_train[:, 0], \n    mode='markers'\n    ), \n)\n\n# add trace of the trendline \nfig2a.add_trace(go.Scatter(\n        x = x_train[:, 0], \n        y = yhat[:, 0], \n        mode='lines+text', \n        line={\n            'dash': 'solid',\n            'color': 'red',\n            'width': 3,\n        }, \n        name='y = ' + str(b.round(3).item()) + ' + ' + str(w.round(3).item()) + 'x',  \n    ), \n)\n\nfig2a.update_layout(\n    autosize=False,\n    width=650,\n    height=500,\n    margin=dict(\n        l=50,\n        r=200,\n        b=50,\n        t=50,\n        # pad=20\n    ),\n)\n\nfig2a.show()\n\nfig2a.write_image(\"images/fig_00_02a.svg\")\n\n\n\n                                                \n\n\n\n\nmethod 2: using plotly.express\nimport plotly.express as px \nimport plotly.graph_objects as go\n\nfig2b = px.scatter(\n    x         = x_train[:, 0],\n    y         = y_train[:, 0],\n    trendline = 'ols',\n)\n\nmodel = px.get_trendline_results(fig2b)\nalpha = model.iloc[0][\"px_fit_results\"].params[0]\nbeta = model.iloc[0][\"px_fit_results\"].params[1]\n\nfig2b.data[0].name = 'observations'\nfig2b.data[0].showlegend = True\nfig2b.data[1].name = (\n    fig2b.data[1].name  + ' y = ' + str(round(alpha, 2)) + ' + ' + str(round(beta, 2)) + 'x'\n)\nfig2b.data[1].showlegend = True\n\nfig_2nd_trendline = go.Scatter(\n    x = x_train[:, 0], \n    y = yhat[:, 0], \n    mode='lines+text', \n    line={\n        'dash': 'solid',\n        'color': 'red',\n        'width': 3,\n    }, \n    name=(\n        'yhat = ' + str(b.round(3).item()) + ' + ' + str(w.round(3).item()) + 'x'\n    ),  \n)\n\nfig2b.add_trace(fig_2nd_trendline)\n\nfig2b.update_layout(\n    autosize=False,\n    width=650,\n    height=500,\n    margin=dict(\n        l=50,\n        r=200,\n        b=50,\n        t=50,\n        # pad=20\n    ),\n)\n\nfig2b.show()\n\nfig2b.write_image(\"images/fig_00_02b.svg\")"
+  },
+  {
+    "objectID": "chapter00.html#step-2---compute-the-loss",
+    "href": "chapter00.html#step-2---compute-the-loss",
+    "title": "00. Visualizing Gradient Descent",
+    "section": "Step 2 - Compute the Loss",
+    "text": "Step 2 - Compute the Loss\nError: the data-point-wise difference btw the actual value (label) and the predicted value.\n\\[\nerror_i = \\hat{y_i} - y_i\n\\]\n\n\n\nLoss : aggregation of the errors for a set of data points.\nFor regression problem, the loss is calcuated by Mean Sqaured Error (MSE), i.e. the average of the squared errors.\n\\[\n\\begin{align*}\nMSE\n&= \\frac{1}{n} \\displaystyle\\sum_{i=1}^n error_i^2 \\\\\n&= \\frac{1}{n} \\displaystyle\\sum_{i=1}^n (\\hat{y_i} - y_i)^2 \\\\\n&= \\frac{1}{n} \\displaystyle\\sum_{i=1}^n (b + wx_i - y_i)^2 \\\\\n\\end{align*}\n\\]\n\nUsing batch, mini-batch, stochastic gradient descent to calculate the loss\n\nBatch gradient descent: Use all data points in the training set.\nMini-batch gradient descent: Use one chunck of data points at a time.\nStochastic gradient descent: Use only one data point ata a time.\n\n\n# step 2: compute the loss use all data points, i.e. batch gradient descent\nerror = (yhat - y_train)\nloss = (error ** 2).mean()\nprint('loss of batch gradient descent:\\t', loss)\n\nloss of batch gradient descent:  2.7421577700550976\n\n\n\n\nLoss Surface\nLoss surface: the surface of the loss function, i.e. the surface in a high-dimensional space, defined by all possible combinations of the parameters of the loss function and the corresponding loss value.\nFor a loss function with two paramerters, the loss surface is a one in a 3-dimentional space, defined by all combinations of the two parameters and their corresponding loss value.\n\n# visualize the loss surface\n\n# create a series of 100 evenly spaced values within a range for both parameters thatis centered around their respective true values.\nnum_rows = 100\nnum_cols = 100 \n\nb_val_range = [true_b - 3, true_b + 3]\nw_val_range = [true_w - 3, true_w + 3]\n\n# create a range of w and b \nb_range = np.linspace(b_val_range[0], b_val_range[1], num_rows+1)\nw_range = np.linspace(w_val_range[0], w_val_range[1], num_cols+1)\n\nprint(\n    'b_range type:\\t', type(b_range), '\\n',\n    'b_range shape:\\t', b_range.shape, '\\n'\n)\nprint(\n    'w_range type:\\t', type(w_range), '\\n',\n    'w_range shape:\\t', w_range.shape, '\\n'\n)\n\n# use the meshgid() in numpy to create a grid of b & w for all their combinations\nbs, ws = np.meshgrid(b_range, w_range)\nprint('bs shape:\\t', bs.shape)\nprint('ws shape:\\t', ws.shape)\n\nb_range type:    &lt;class 'numpy.ndarray'&gt; \n b_range shape:  (101,) \n\nw_range type:    &lt;class 'numpy.ndarray'&gt; \n w_range shape:  (101,) \n\nbs shape:    (101, 101)\nws shape:    (101, 101)\n\n\n\nbs \n\narray([[-2.  , -1.94, -1.88, ...,  3.88,  3.94,  4.  ],\n       [-2.  , -1.94, -1.88, ...,  3.88,  3.94,  4.  ],\n       [-2.  , -1.94, -1.88, ...,  3.88,  3.94,  4.  ],\n       ...,\n       [-2.  , -1.94, -1.88, ...,  3.88,  3.94,  4.  ],\n       [-2.  , -1.94, -1.88, ...,  3.88,  3.94,  4.  ],\n       [-2.  , -1.94, -1.88, ...,  3.88,  3.94,  4.  ]])\n\n\n\nws \n\narray([[-1.  , -1.  , -1.  , ..., -1.  , -1.  , -1.  ],\n       [-0.94, -0.94, -0.94, ..., -0.94, -0.94, -0.94],\n       [-0.88, -0.88, -0.88, ..., -0.88, -0.88, -0.88],\n       ...,\n       [ 4.88,  4.88,  4.88, ...,  4.88,  4.88,  4.88],\n       [ 4.94,  4.94,  4.94, ...,  4.94,  4.94,  4.94],\n       [ 5.  ,  5.  ,  5.  , ...,  5.  ,  5.  ,  5.  ]])\n\n\n\n# calculate prediction, errors, and loss for a single input data point, using all the combinations of b & w generated above\ndummy_x = x_train[0]\ndummy_yhat = bs + ws * dummy_x\n\nprint('dummy_yhab shape:\\t', dummy_yhat.shape)\n\ndummy_yhab shape:    (101, 101)\n\n\n\nall_predictions = np.apply_along_axis(\n    func1d = lambda x: bs + ws * x,\n    axis   = 1,\n    arr    = x_train,\n)\n\nprint('all_predictions shape:\\t', all_predictions.shape)\n\nall_predictions shape:   (80, 101, 101)\n\n\n\n# reshape the 1D vector of all labels to a rank-3 tensor matching the shape of all_predictions\nall_labels = y_train.reshape(-1, 1, 1)\n\nprint('all_labels shape:\\t', all_labels.shape)\n\nall_labels shape:    (80, 1, 1)\n\n\n\nall_errors = ( all_predictions - all_labels  )\n\nprint('all_errors shape:\\t', all_errors.shape)\n\nall_errors shape:    (80, 101, 101)\n\n\n\nall_losses = ( all_errors ** 2 ).mean(axis=0)\n\nprint('all_losses shape:\\t', all_losses.shape)\n\nall_losses shape:    (101, 101)\n\n\n\nfigure4(x_train, y_train, b, w, bs, ws, all_losses)\n\n(&lt;Figure size 1152x576 with 2 Axes&gt;,\n (&lt;Axes3D: title={'center': 'Loss Surface'}, xlabel='b', ylabel='w'&gt;,\n  &lt;Axes: title={'center': 'Loss Surface'}, xlabel='b', ylabel='w'&gt;))\n\n\n\n\n\nPlot the loss surface using plotly.\n\n\nplot the loss surface\nimport plotly.graph_objects as go \n\nfig_loss_surf = go.Figure(\n    data=[go.Surface(\n        x=b_range, \n        y=w_range,\n        z=all_losses,\n    )]\n) \n\nfig_loss_surf.update_traces(\n    contours_x = dict(\n        show=True, \n        usecolormap=True, \n        highlightcolor=\"red\", \n        project_x=True, \n    ),\n    contours_y = dict(\n        show=True, \n        usecolormap=True, \n        highlightcolor=\"green\", \n        project_y=True, \n    ), \n    contours_z = dict(\n        show=True, \n        usecolormap=True, \n        highlightcolor=\"blue\", \n        project_z=True, \n    )\n)\n\nfig_loss_surf.update_layout(\n    title=\"Loss Surface\",\n    autosize=False, \n    width=800, \n    height=800,\n    scene= dict(\n        xaxis = dict(\n            nticks=11,\n            range=[b_val_range[1], b_val_range[0]],\n            title_text='b'\n        ),\n        yaxis = dict(\n            nticks=11,\n            range=[w_val_range[1], w_val_range[0]],\n            title_text='w'\n        ),\n        zaxis = dict(nticks=11, title_text='loss'), \n    ), \n    scene_aspectmode='cube', \n    # margin=dict(\n    #     l=100,\n    #     r=100,\n    #     b=100,\n    #     t=100,\n    #     # pad=20\n    # ),\n    \n)\n\nfig_loss_surf.show()\n\nfig_loss_surf.write_image(\"images/fig_00_04_loss_surface.svg\")\n\n\n\n                                                \n\n\n\n\ncreate contour plot\nfig_contour = go.Figure(data=[go.Contour(\n    x=b_range, \n    y=w_range,\n    z=all_losses,\n    contours=dict(\n        coloring = 'heatmap', \n        showlabels = True,\n        labelfont = dict(\n            size=10, \n            color='white', \n        ), \n    ), \n    # contours_coloring='lines', # uncomment to show lines only\n    line_width=2, \n    ncontours=30,  \n)]) \n\nfig_contour.update_layout(\n    title=\"Loss Surface Contour\",\n    autosize=False, \n    width=600, \n    height=600,\n    # scene= dict(\n    #     xaxis = dict(nticks=11, range=[b_val_range[1], b_val_range[0]], title_text='b'),\n    #     yaxis = dict(nticks=11, range=[w_val_range[1], w_val_range[0]], title_text='w'),\n    #     zaxis = dict(nticks=11, title_text='loss'), \n    # ), \n    scene_aspectmode='cube', \n)\n\nfig_pt = go.Scatter(\n    x = b, \n    y = w, \n    marker=dict(\n        color='red',\n        size=10,\n        line=dict(color='yellow', width=2),\n    ), \n    text='randomly generated b & w', \n)\n\nfig_contour.add_trace(fig_pt)\n\nfig_contour.show()\nfig_contour.write_image(\"images/fig_00_04_contour.svg\")"
+  },
+  {
+    "objectID": "chapter01.html#model",
+    "href": "chapter01.html#model",
+    "title": "PyTorch I",
+    "section": "Model",
+    "text": "Model\nA linear regression with a single feature, \\(x\\):\n\\[y = b + wx + \\epsilon\\]\nIn this model, we use a feature (x) to try to predict the value of a label (y). There are three elements in our model:\n\n\\(b\\) : the bias (or intercept), which tells us the expected average value of y when x is zero\n\\(w\\) : the weight (or slope), which tells us how much y increases, on average, if we increase x by one unit\n\\(\\epsilon\\) : which is there to account for the inherent noise; that is, the error we cannot get rid of"
+  },
+  {
+    "objectID": "chapter01.html#data-generation",
+    "href": "chapter01.html#data-generation",
+    "title": "PyTorch I",
+    "section": "Data Generation",
+    "text": "Data Generation\n\nCreate Synthetic Data"
+  },
+  {
+    "objectID": "chapter01.html",
+    "href": "chapter01.html",
+    "title": "PyTorch I",
+    "section": "",
+    "text": "A nice overview page on PyTorch tensors is PyTorch Basic Operations.\nPyTorch Tensors API\n\n\n\n# import pytorch\nimport torch\n\na = torch.tensor([1, 2, 3])\nb = torch.tensor([2, -2])\nc = torch.tensor(\n    [[1, 2, 9], \n     [3, 4, 7]]\n)\n\nprint(a)\nprint(b)\nprint(c)\n\ntensor([1, 2, 3])\ntensor([ 2, -2])\ntensor([[1, 2, 9],\n        [3, 4, 7]])\n\n\n\na[0]\n\ntensor(1)\n\n\nNote that tensor(1) is still a tensor, not a scalar, which can only be accessed using the item() method.\n\na[0].item()\n\n1\n\n\n\n\nThe shape property of a tensor returns the dimensions of the tensor, i.e. number of elements in each axis of the tensor.\n\nprint(a.shape)\nprint(b.shape)\nprint(c.shape)\n\ntorch.Size([3])\ntorch.Size([2])\ntorch.Size([2, 3])\n\n\nFor a tensor with a single value, the shape is null.\n\na[0].shape\n\ntorch.Size([])\n\n\n\n\n\ntorch.rand API\n\nrand_num = torch.rand(2, 3)\nrand_num\n\ntensor([[0.1429, 0.8227, 0.2034],\n        [0.2457, 0.2892, 0.6372]])\n\n\n\n\n\n\nones = torch.ones(2, 3)\nones\n\ntensor([[1., 1., 1.],\n        [1., 1., 1.]])\n\n\n\nzeros = torch.zeros(2, 3)\nzeros\n\ntensor([[0., 0., 0.],\n        [0., 0., 0.]])\n\n\n\neyes = torch.eye(5)\neyes\n\ntensor([[1., 0., 0., 0., 0.],\n        [0., 1., 0., 0., 0.],\n        [0., 0., 1., 0., 0.],\n        [0., 0., 0., 1., 0.],\n        [0., 0., 0., 0., 1.]])\n\n\n\n\n\nCreate a range of integers.\n\ntorch.arange(5)\n\ntensor([0, 1, 2, 3, 4])\n\n\nSpecify data type as float.\n\ntorch.arange(5, dtype=torch.float32)\n\ntensor([0., 1., 2., 3., 4.])\n\n\n\ntorch.arange(6.0)\n\ntensor([0., 1., 2., 3., 4., 5.])\n\n\n\ntorch.arange(3, 8)\n\ntensor([3, 4, 5, 6, 7])\n\n\n\n\n\n\naa = torch.arange(3, 8)\nprint(aa)\naa_mask = aa &gt; 4\nprint(aa_mask)\n\ntensor([3, 4, 5, 6, 7])\ntensor([False, False,  True,  True,  True])\n\n\n\naa = torch.arange(3, 8)\nprint(aa)\naa_mask = aa &gt; 4\nprint(aa[aa_mask]) # note the output is one a \"view\" of aa, whose data is not modified\n\ntensor([3, 4, 5, 6, 7])\ntensor([5, 6, 7])\n\n\n\naa = torch.arange(3, 8)\nprint(aa)\naa_mask = aa &gt; 4\nprint(aa_mask)\nprint(aa_mask.int())\n\ntensor([3, 4, 5, 6, 7])\ntensor([False, False,  True,  True,  True])\ntensor([0, 0, 1, 1, 1], dtype=torch.int32)",
+    "crumbs": [
+      "Part I: Fundamentals",
+      "PyTorch I"
+    ]
+  },
+  {
+    "objectID": "chapter01.html#tensors",
+    "href": "chapter01.html#tensors",
+    "title": "PyTorch I",
+    "section": "",
+    "text": "A nice overview page on PyTorch tensors is PyTorch Basic Operations.\nPyTorch Tensors API\n\n\n\n# import pytorch\nimport torch\n\na = torch.tensor([1, 2, 3])\nb = torch.tensor([2, -2])\nc = torch.tensor(\n    [[1, 2, 9], \n     [3, 4, 7]]\n)\n\nprint(a)\nprint(b)\nprint(c)\n\ntensor([1, 2, 3])\ntensor([ 2, -2])\ntensor([[1, 2, 9],\n        [3, 4, 7]])\n\n\n\na[0]\n\ntensor(1)\n\n\nNote that tensor(1) is still a tensor, not a scalar, which can only be accessed using the item() method.\n\na[0].item()\n\n1\n\n\n\n\nThe shape property of a tensor returns the dimensions of the tensor, i.e. number of elements in each axis of the tensor.\n\nprint(a.shape)\nprint(b.shape)\nprint(c.shape)\n\ntorch.Size([3])\ntorch.Size([2])\ntorch.Size([2, 3])\n\n\nFor a tensor with a single value, the shape is null.\n\na[0].shape\n\ntorch.Size([])\n\n\n\n\n\ntorch.rand API\n\nrand_num = torch.rand(2, 3)\nrand_num\n\ntensor([[0.1429, 0.8227, 0.2034],\n        [0.2457, 0.2892, 0.6372]])\n\n\n\n\n\n\nones = torch.ones(2, 3)\nones\n\ntensor([[1., 1., 1.],\n        [1., 1., 1.]])\n\n\n\nzeros = torch.zeros(2, 3)\nzeros\n\ntensor([[0., 0., 0.],\n        [0., 0., 0.]])\n\n\n\neyes = torch.eye(5)\neyes\n\ntensor([[1., 0., 0., 0., 0.],\n        [0., 1., 0., 0., 0.],\n        [0., 0., 1., 0., 0.],\n        [0., 0., 0., 1., 0.],\n        [0., 0., 0., 0., 1.]])\n\n\n\n\n\nCreate a range of integers.\n\ntorch.arange(5)\n\ntensor([0, 1, 2, 3, 4])\n\n\nSpecify data type as float.\n\ntorch.arange(5, dtype=torch.float32)\n\ntensor([0., 1., 2., 3., 4.])\n\n\n\ntorch.arange(6.0)\n\ntensor([0., 1., 2., 3., 4., 5.])\n\n\n\ntorch.arange(3, 8)\n\ntensor([3, 4, 5, 6, 7])\n\n\n\n\n\n\naa = torch.arange(3, 8)\nprint(aa)\naa_mask = aa &gt; 4\nprint(aa_mask)\n\ntensor([3, 4, 5, 6, 7])\ntensor([False, False,  True,  True,  True])\n\n\n\naa = torch.arange(3, 8)\nprint(aa)\naa_mask = aa &gt; 4\nprint(aa[aa_mask]) # note the output is one a \"view\" of aa, whose data is not modified\n\ntensor([3, 4, 5, 6, 7])\ntensor([5, 6, 7])\n\n\n\naa = torch.arange(3, 8)\nprint(aa)\naa_mask = aa &gt; 4\nprint(aa_mask)\nprint(aa_mask.int())\n\ntensor([3, 4, 5, 6, 7])\ntensor([False, False,  True,  True,  True])\ntensor([0, 0, 1, 1, 1], dtype=torch.int32)",
+    "crumbs": [
+      "Part I: Fundamentals",
+      "PyTorch I"
+    ]
+  }
+]

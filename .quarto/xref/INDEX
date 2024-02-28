@@ -1,0 +1,17 @@
+{
+  "index.qmd": {
+    "index.html": "95dbef17",
+    "index.ipynb": "a4c77a3f"
+  },
+  "about.qmd": {
+    "about.html": "479f7153",
+    "about.ipynb": "3617fa4b"
+  },
+  "chapter01.qmd": {
+    "chapter01.html": "16664d23",
+    "chapter01.ipynb": "e7721d8c"
+  },
+  "chapter02.qmd": {
+    "chapter02.html": "3ee72ce6"
+  }
+}

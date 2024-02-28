@@ -1,0 +1,9 @@
+---
+title: "PyTorch Tutorials"
+---
+
+Notes of Prof Michael Kipp's tutorials on PyTorch. 
+
+- [PyTorch I - Foundamentals](https://michaelkipp.de/deeplearning/PyTorch_I.html)
+- [PyTorch II - Neural Networks](https://michaelkipp.de/deeplearning/PyTorch_II.html)
+

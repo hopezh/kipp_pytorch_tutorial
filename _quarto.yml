@@ -1,0 +1,44 @@
+project:
+  type: website
+
+website:
+  title: "PyTorch Tutorial"
+
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+  sidebar:
+    title: "Contents"
+    # style: "docked"
+    style: "floating"
+    search: true
+    contents:
+      - section: "Part I: Fundamentals"
+        contents:
+          - chapter01.qmd
+      - section: "Part II: Neural Networks"
+        contents:
+          - chapter02.qmd
+
+  page-footer:
+    left: "Author 2023, ZHANG Ji"
+    right: 
+          - icon: github
+            href: https://github.com/
+          - icon: twitter 
+            href: https://twitter.com/ 
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+
+  ipynb: default
+
+

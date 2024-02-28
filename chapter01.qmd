@@ -1,0 +1,130 @@
+# PyTorch I {.unnumbered}
+
+
+## 2. Tensors
+A nice overview page on PyTorch tensors is [PyTorch Basic Operations](https://jhui.github.io/2018/02/09/PyTorch-Basic-operations/).
+
+[PyTorch Tensors API](https://pytorch.org/docs/stable/tensors.html)
+
+
+### 2.1 Tensor Objects
+
+```{python}
+# import pytorch
+import torch
+
+a = torch.tensor([1, 2, 3])
+b = torch.tensor([2, -2])
+c = torch.tensor(
+    [[1, 2, 9], 
+     [3, 4, 7]]
+)
+
+print(a)
+print(b)
+print(c)
+```
+
+```{python}
+a[0]
+```
+
+Note that `tensor(1)` is still a `tensor`, not a `scalar`, which can only be accessed using the `item()` method.
+
+```{python}
+a[0].item()
+```
+
+#### Tensor Shape
+
+The `shape` property of a tensor returns the `dimensions` of the tensor, i.e. `number of elements` in each `axis` of the tensor. 
+
+```{python}
+print(a.shape)
+print(b.shape)
+print(c.shape)
+```
+
+For a tensor with a single value, the shape is `null`.
+
+```{python}
+a[0].shape
+```
+
+
+#### Random values
+
+[torch.rand API](https://pytorch.org/docs/stable/generated/torch.rand.html)
+
+```{python}
+rand_num = torch.rand(2, 3)
+rand_num
+```
+
+
+#### Standard matrices
+
+```{python}
+ones = torch.ones(2, 3)
+ones
+```
+
+
+```{python}
+zeros = torch.zeros(2, 3)
+zeros
+```
+
+
+```{python}
+eyes = torch.eye(5)
+eyes
+```
+
+
+#### Enumeration
+
+Create a range of integers.
+```{python}
+torch.arange(5)
+```
+
+Specify data type as float.
+```{python}
+torch.arange(5, dtype=torch.float32)
+```
+
+```{python}
+torch.arange(6.0)
+```
+
+```{python}
+torch.arange(3, 8)
+```
+
+#### Boolean mask
+
+```{python}
+aa = torch.arange(3, 8)
+print(aa)
+aa_mask = aa > 4
+print(aa_mask)
+```
+
+```{python}
+aa = torch.arange(3, 8)
+print(aa)
+aa_mask = aa > 4
+print(aa[aa_mask]) # note the output is one a "view" of aa, whose data is not modified
+```
+
+```{python}
+aa = torch.arange(3, 8)
+print(aa)
+aa_mask = aa > 4
+print(aa_mask)
+print(aa_mask.int())
+```
+
+
+

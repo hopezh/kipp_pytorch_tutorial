@@ -1,0 +1,55 @@
+# PyTorch I {.unnumbered}
+
+
+## 2. Tensors
+A nice overview page on PyTorch tensors is [PyTorch Basic Operations](https://jhui.github.io/2018/02/09/PyTorch-Basic-operations/).
+
+[PyTorch Tensors API](https://pytorch.org/docs/stable/tensors.html)
+
+
+### 2.1 Tensor Objects
+
+```{python}
+import torch
+
+a = torch.tensor([1, 2, 3])
+b = torch.tensor([2, -2])
+c = torch.tensor(
+    [[1, 2, 9], 
+     [3, 4, 7]]
+)
+
+print(a)
+print ( b )
+print( c )
+```
+
+```{python}
+a[0]
+```
+
+Note that `tensor(1)` is still a `tensor`, not a `scalar`, which can only be accessed using the `item()` method.
+
+```{python}
+a[0].item()
+```
+
+#### 2.1.1 Tensor Shape
+
+The `shape` property of a tensor returns the `dimensions` of the tensor, i.e. `number of elements` in each `axis` of the tensor. 
+
+```{python}
+print(a.shape)
+print(b.shape)
+print(c.shape)
+```
+
+For a tensor with a single value, the shape is `null`.
+
+```{python}
+a[0].shape
+```
+
+#### 2.1.2 Random values
+
+:which
